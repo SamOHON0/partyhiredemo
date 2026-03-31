@@ -1,0 +1,985 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>S&G Party Hire | Marquees, Furniture & Portaloos</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:    #F2F6FB;
+    --bg2:   #E6ECF5;
+    --white: #FFFFFF;
+    --navy:  #061228;
+    --navy2: #0B1D3E;
+    --neon:  #00C9A7;
+    --glow:  rgba(0,201,167,0.2);
+    --text:  #061228;
+    --muted: #5C6E8A;
+    --bord:  rgba(6,18,40,0.09);
+    --bordn: rgba(0,201,167,0.3);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    overflow-x: hidden;
+  }
+
+  /* ======= NAV ======= */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    height: 64px; padding: 0 48px;
+    display: flex; align-items: center; justify-content: space-between;
+    background: rgba(242,246,251,0.94);
+    backdrop-filter: blur(18px);
+    border-bottom: 1px solid var(--bord);
+    transition: box-shadow 0.3s;
+  }
+
+  nav.scrolled { box-shadow: 0 4px 24px rgba(6,18,40,0.08); }
+
+  .logo {
+    font-family: 'Bricolage Grotesque', sans-serif;
+    font-weight: 800; font-size: 1.15rem;
+    color: var(--navy); text-decoration: none;
+    display: flex; align-items: center; gap: 8px;
+    letter-spacing: -0.01em;
+  }
+
+  .logo-pip { width: 8px; height: 8px; border-radius: 50%; background: var(--neon); box-shadow: 0 0 8px var(--neon); flex-shrink: 0; }
+
+  .nav-links { display: flex; gap: 32px; list-style: none; align-items: center; }
+
+  .nav-links a {
+    font-size: 0.78rem; font-weight: 500; color: var(--muted);
+    text-decoration: none; letter-spacing: 0.06em; text-transform: uppercase;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--navy); }
+
+  .nav-cta {
+    background: var(--navy) !important; color: var(--neon) !important;
+    padding: 9px 20px; border-radius: 4px;
+    font-weight: 600 !important; font-size: 0.76rem !important;
+    letter-spacing: 0.06em !important; transition: box-shadow 0.2s !important;
+  }
+
+  .nav-cta:hover { box-shadow: 0 4px 20px var(--glow) !important; color: var(--neon) !important; }
+
+  /* ======= HERO — centered, full width ======= */
+  .hero {
+    padding: 148px 80px 80px;
+    text-align: center;
+    background: var(--bg);
+    position: relative; overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background-image: radial-gradient(circle, rgba(6,18,40,0.05) 1px, transparent 1px);
+    background-size: 28px 28px;
+    pointer-events: none;
+  }
+
+  .hero-inner { position: relative; z-index: 2; max-width: 820px; margin: 0 auto; }
+
+  .hero-tag {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-size: 0.7rem; font-weight: 500; color: var(--neon);
+    letter-spacing: 0.2em; text-transform: uppercase;
+    margin-bottom: 24px;
+    animation: up 0.6s ease both;
+  }
+
+  .hero-tag span { width: 22px; height: 2px; background: var(--neon); display: block; }
+
+  h1 {
+    font-family: 'Bricolage Grotesque', sans-serif;
+    font-weight: 800;
+    font-size: clamp(3rem, 6.5vw, 6rem);
+    line-height: 1.0; letter-spacing: -0.035em;
+    color: var(--navy); margin-bottom: 22px;
+    animation: up 0.6s ease 0.1s both;
+  }
+
+  h1 .accent { color: var(--neon); }
+
+  .hero-sub {
+    font-size: 1.05rem; font-weight: 300; color: var(--muted);
+    line-height: 1.8; max-width: 480px; margin: 0 auto 40px;
+    animation: up 0.6s ease 0.2s both;
+  }
+
+  .hero-btns {
+    display: flex; gap: 12px; align-items: center; justify-content: center;
+    margin-bottom: 56px;
+    animation: up 0.6s ease 0.3s both;
+  }
+
+  .btn {
+    display: inline-block; text-decoration: none;
+    padding: 14px 30px; border-radius: 4px;
+    font-size: 0.82rem; font-weight: 600;
+    letter-spacing: 0.07em; text-transform: uppercase;
+    transition: all 0.2s;
+  }
+
+  .btn-solid { background: var(--navy); color: var(--neon); }
+  .btn-solid:hover { box-shadow: 0 6px 24px var(--glow); transform: translateY(-1px); }
+  .btn-line { border: 1.5px solid var(--bord); color: var(--navy); }
+  .btn-line:hover { border-color: var(--neon); color: var(--neon); }
+
+  /* Hero service chips */
+  .hero-chips {
+    display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;
+    animation: up 0.6s ease 0.4s both;
+  }
+
+  .chip {
+    background: var(--white); border: 1px solid var(--bord);
+    border-radius: 100px; padding: 10px 18px;
+    display: flex; align-items: center; gap: 8px;
+    font-size: 0.82rem; font-weight: 500; color: var(--navy);
+    box-shadow: 0 2px 8px rgba(6,18,40,0.05);
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+
+  .chip:hover { border-color: var(--bordn); box-shadow: 0 4px 16px rgba(0,201,167,0.1); }
+  .chip-icon { font-size: 1.1rem; }
+
+  /* Hero big image area */
+  .hero-img-area {
+    margin-top: 56px;
+    border-radius: 12px; overflow: hidden;
+    border: 1px solid var(--bord);
+    box-shadow: 0 16px 64px rgba(6,18,40,0.1);
+    height: 480px;
+    background: var(--white);
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center; gap: 12px;
+    animation: up 0.8s ease 0.5s both;
+    position: relative;
+  }
+
+  .hero-img-area svg { opacity: 0.18; }
+  .hero-img-hint { font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+
+  /* Hero stats strip inside image area */
+  .hero-stats {
+    position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%);
+    display: flex; gap: 8px;
+  }
+
+  .hstat {
+    background: var(--navy); color: var(--white);
+    border-radius: 8px; padding: 14px 20px;
+    text-align: center; min-width: 100px;
+  }
+
+  .hstat-n {
+    font-family: 'Bricolage Grotesque', sans-serif;
+    font-size: 1.6rem; font-weight: 800; color: var(--neon);
+    display: block; line-height: 1; margin-bottom: 3px;
+    letter-spacing: -0.02em;
+    text-shadow: 0 0 12px rgba(0,201,167,0.4);
+  }
+
+  .hstat-l { font-size: 0.6rem; font-weight: 400; color: rgba(255,255,255,0.45); letter-spacing: 0.08em; text-transform: uppercase; }
+
+  /* ======= TICKER ======= */
+  .ticker { background: var(--navy); padding: 13px 0; overflow: hidden; }
+  .ticker-inner { display: flex; animation: tick 28s linear infinite; width: max-content; }
+
+  .tick-item {
+    display: flex; align-items: center; gap: 18px;
+    padding: 0 28px; white-space: nowrap; flex-shrink: 0;
+    font-size: 0.74rem; font-weight: 500; color: rgba(255,255,255,0.5);
+    letter-spacing: 0.1em; text-transform: uppercase;
+  }
+
+  .tick-dot { width: 4px; height: 4px; border-radius: 50%; background: var(--neon); flex-shrink: 0; }
+
+  @keyframes tick { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+  /* ======= SERVICES — tall vertical panels ======= */
+  .services {
+    padding: 96px 80px;
+    background: var(--bg);
+  }
+
+  .sec-tag {
+    display: flex; align-items: center; gap: 10px;
+    font-size: 0.7rem; font-weight: 500; color: var(--neon);
+    letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 12px;
+  }
+
+  .sec-tag::before { content: ''; width: 22px; height: 2px; background: var(--neon); flex-shrink: 0; }
+
+  .sec-title {
+    font-family: 'Bricolage Grotesque', sans-serif;
+    font-size: clamp(2rem, 3.2vw, 2.9rem);
+    font-weight: 800; line-height: 1.04;
+    letter-spacing: -0.03em; color: var(--navy);
+  }
+
+  .sec-head { margin-bottom: 52px; }
+
+  /* Vertical panels */
+  .svc-panels {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+    border: 1px solid var(--bord);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 24px rgba(6,18,40,0.07);
+  }
+
+  .svc-panel {
+    background: var(--white);
+    border-right: 1px solid var(--bord);
+    position: relative; overflow: hidden;
+    transition: background 0.25s;
+    cursor: default;
+  }
+
+  .svc-panel:last-child { border-right: none; }
+  .svc-panel:hover { background: var(--bg); }
+
+  .svc-panel-img {
+    height: 240px; width: 100%;
+    background: var(--bg2);
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center; gap: 9px;
+    position: relative;
+    border-bottom: 1px solid var(--bord);
+  }
+
+  .svc-panel-img svg { opacity: 0.18; }
+  .svc-panel-img-lbl { font-size: 0.62rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+
+  .svc-panel-badge {
+    position: absolute; top: 12px; right: 12px;
+    background: var(--neon); color: var(--navy);
+    font-size: 0.58rem; font-weight: 700;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    padding: 4px 10px; border-radius: 3px;
+  }
+
+  .svc-panel-body { padding: 32px 28px 36px; }
+
+  .svc-panel-num {
+    font-size: 0.65rem; font-weight: 600; color: var(--neon);
+    letter-spacing: 0.18em; text-transform: uppercase; margin-bottom: 10px; opacity: 0.8;
+  }
+
+  .svc-panel h3 {
+    font-family: 'Bricolage Grotesque', sans-serif;
+    font-size: 1.5rem; font-weight: 800;
+    color: var(--navy); margin-bottom: 12px;
+    letter-spacing: -0.025em; line-height: 1.1;
+  }
+
+  .svc-panel p { font-size: 0.84rem; font-weight: 300; color: var(--muted); line-height: 1.75; margin-bottom: 20px; }
+
+  .svc-list { list-style: none; display: flex; flex-direction: column; gap: 9px; }
+
+  .svc-list li {
+    font-size: 0.81rem; color: var(--text);
+    display: flex; align-items: center; gap: 10px; font-weight: 400;
+  }
+
+  .svc-list li::before { content: ''; width: 12px; height: 1.5px; background: var(--neon); flex-shrink: 0; }
+
+  /* ======= ABOUT — zigzag ======= */
+  .about { background: var(--navy); }
+
+  .about-row {
+    display: grid; grid-template-columns: 1fr 1fr;
+    min-height: 420px;
+  }
+
+  .about-row.flip { direction: rtl; }
+  .about-row.flip > * { direction: ltr; }
+
+  .about-txt {
+    padding: 72px 64px;
+    display: flex; flex-direction: column; justify-content: center;
+  }
+
+  .about-txt .sec-tag { color: var(--neon); }
+  .about-txt .sec-title { color: var(--white); }
+
+  .about-txt p { font-size: 0.93rem; font-weight: 300; color: rgba(255,255,255,0.5); line-height: 1.85; margin-top: 18px; }
+
+  .about-img {
+    background: rgba(255,255,255,0.04);
+    border-left: 1px solid rgba(255,255,255,0.07);
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center; gap: 10px;
+    transition: background 0.2s;
+  }
+
+  .about-row.flip .about-img { border-left: none; border-right: 1px solid rgba(255,255,255,0.07); }
+  .about-img:hover { background: rgba(255,255,255,0.06); }
+  .about-img svg { opacity: 0.15; }
+  .about-img-lbl { font-size: 0.62rem; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.28); }
+
+  .about-divider { height: 1px; background: rgba(255,255,255,0.07); margin: 0 64px; }
+
+  /* Why us features — inside about section */
+  .feats {
+    display: grid; grid-template-columns: repeat(2, 1fr);
+    gap: 1px; background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 8px; overflow: hidden;
+    margin-top: 32px;
+  }
+
+  .feat {
+    background: rgba(6,18,40,0.5);
+    padding: 18px 20px;
+    display: flex; align-items: flex-start; gap: 14px;
+    transition: background 0.2s;
+  }
+
+  .feat:hover { background: rgba(6,18,40,0.8); }
+
+  .feat-ico {
+    width: 36px; height: 36px; border-radius: 5px;
+    background: rgba(0,201,167,0.1); border: 1px solid rgba(0,201,167,0.2);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1rem; flex-shrink: 0;
+  }
+
+  .feat strong { display: block; font-size: 0.88rem; font-weight: 600; color: var(--white); margin-bottom: 3px; }
+  .feat span { font-size: 0.77rem; font-weight: 300; color: rgba(255,255,255,0.45); line-height: 1.5; }
+
+  /* ======= STATS — full bleed teal ======= */
+  .stats {
+    background: var(--neon);
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    padding: 0 80px;
+  }
+
+  .stat {
+    padding: 36px 24px;
+    border-right: 1px solid rgba(6,18,40,0.12);
+    transition: background 0.2s; cursor: default;
+  }
+
+  .stat:last-child { border-right: none; }
+  .stat:hover { background: rgba(6,18,40,0.06); }
+
+  .stat-n {
+    font-family: 'Bricolage Grotesque', sans-serif;
+    font-size: 2.8rem; font-weight: 800;
+    color: var(--navy); line-height: 1;
+    margin-bottom: 4px; letter-spacing: -0.03em;
+  }
+
+  .stat-l { font-size: 0.72rem; font-weight: 500; color: rgba(6,18,40,0.55); letter-spacing: 0.08em; text-transform: uppercase; }
+
+  /* ======= PROCESS ======= */
+  .process { padding: 96px 80px; background: var(--bg2); }
+
+  .steps {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    margin-top: 52px; position: relative;
+  }
+
+  .steps::before {
+    content: ''; position: absolute; top: 19px;
+    left: calc(12.5% + 10px); right: calc(12.5% + 10px);
+    height: 1px; background: linear-gradient(90deg, var(--neon), rgba(0,201,167,0.1));
+  }
+
+  .step { padding: 0 16px; }
+
+  .step-n {
+    width: 38px; height: 38px; border-radius: 50%;
+    background: var(--bg2); border: 1.5px solid var(--neon);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Bricolage Grotesque', sans-serif;
+    font-size: 0.85rem; font-weight: 700; color: var(--neon);
+    margin-bottom: 22px; position: relative; z-index: 2;
+    box-shadow: 0 0 10px rgba(0,201,167,0.25);
+  }
+
+  .step h4 { font-family: 'Bricolage Grotesque', sans-serif; font-size: 1.05rem; font-weight: 700; color: var(--navy); margin-bottom: 8px; letter-spacing: -0.01em; }
+  .step p { font-size: 0.81rem; font-weight: 300; color: var(--muted); line-height: 1.7; }
+
+  /* ======= INVENTORY — horizontal scroll ======= */
+  .inventory { padding: 96px 0; background: var(--bg); overflow: hidden; }
+
+  .inventory-head { padding: 0 80px; margin-bottom: 40px; }
+
+  .inv-scroll-wrap {
+    overflow-x: auto;
+    padding: 8px 80px 24px;
+    scrollbar-width: thin;
+    scrollbar-color: var(--bord) transparent;
+  }
+
+  .inv-scroll-wrap::-webkit-scrollbar { height: 4px; }
+  .inv-scroll-wrap::-webkit-scrollbar-track { background: transparent; }
+  .inv-scroll-wrap::-webkit-scrollbar-thumb { background: var(--bord); border-radius: 2px; }
+
+  .inv-track {
+    display: flex; gap: 14px;
+    width: max-content;
+  }
+
+  .inv-card {
+    background: var(--white);
+    border: 1px solid var(--bord);
+    border-radius: 10px; overflow: hidden;
+    width: 260px; flex-shrink: 0;
+    box-shadow: 0 2px 8px rgba(6,18,40,0.04);
+    transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
+    position: relative;
+  }
+
+  .inv-card::after {
+    content: ''; position: absolute; bottom: 0; left: 0; right: 0;
+    height: 2px; background: var(--neon);
+    transform: scaleX(0); transform-origin: left;
+    transition: transform 0.3s ease;
+  }
+
+  .inv-card:hover { transform: translateY(-4px); border-color: var(--bordn); box-shadow: 0 12px 28px rgba(6,18,40,0.1); }
+  .inv-card:hover::after { transform: scaleX(1); }
+
+  .inv-img {
+    height: 160px; background: var(--bg2);
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center; gap: 8px;
+  }
+
+  .inv-img svg { opacity: 0.18; }
+  .inv-img-hint { font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+
+  .inv-body { padding: 18px 20px 22px; }
+  .inv-card h4 { font-family: 'Bricolage Grotesque', sans-serif; font-size: 1rem; font-weight: 700; color: var(--navy); margin-bottom: 6px; letter-spacing: -0.01em; }
+  .inv-card p { font-size: 0.78rem; font-weight: 300; color: var(--muted); line-height: 1.65; }
+
+  /* ======= GALLERY — full-bleed mosaic ======= */
+  .gallery { background: var(--bg2); }
+
+  .gallery-head { padding: 96px 80px 40px; }
+
+  .g-mosaic {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: 260px 180px;
+    gap: 6px;
+  }
+
+  .g-cell {
+    background: var(--white);
+    border: 1px solid var(--bord);
+    position: relative; overflow: hidden;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center; gap: 8px;
+    transition: border-color 0.25s;
+    cursor: pointer;
+  }
+
+  .g-cell:first-child { grid-column: span 2; }
+  .g-cell:hover { border-color: var(--bordn); }
+  .g-cell:hover .g-tag { background: var(--neon); color: var(--navy); }
+  .g-cell svg { opacity: 0.18; }
+  .g-hint { font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+
+  .g-tag {
+    position: absolute; bottom: 10px; left: 10px;
+    background: var(--navy); color: var(--white);
+    padding: 4px 11px; border-radius: 3px;
+    font-size: 0.63rem; font-weight: 600;
+    letter-spacing: 0.09em; text-transform: uppercase;
+    transition: background 0.2s, color 0.2s;
+  }
+
+  /* ======= CONTACT — single column centred form ======= */
+  .contact {
+    padding: 96px 80px;
+    background: var(--bg);
+  }
+
+  .contact-inner {
+    display: grid; grid-template-columns: 1fr 1.2fr;
+    gap: 80px; align-items: start;
+    max-width: 1100px; margin: 0 auto;
+  }
+
+  .contact-left p { font-size: 0.93rem; font-weight: 300; color: var(--muted); line-height: 1.85; margin-top: 18px; }
+
+  .contact-perks { list-style: none; margin-top: 32px; display: flex; flex-direction: column; gap: 12px; }
+
+  .contact-perks li { display: flex; align-items: center; gap: 12px; font-size: 0.84rem; font-weight: 400; color: var(--text); }
+
+  .perk-pip { width: 7px; height: 7px; border-radius: 50%; background: var(--neon); box-shadow: 0 0 7px var(--neon); flex-shrink: 0; }
+
+  .contact-details { margin-top: 40px; padding-top: 32px; border-top: 1px solid var(--bord); display: flex; flex-direction: column; gap: 12px; }
+
+  .contact-detail { display: flex; align-items: center; gap: 12px; font-size: 0.88rem; color: var(--navy); font-weight: 500; }
+  .contact-detail .dico { width: 34px; height: 34px; border-radius: 4px; background: var(--bg2); border: 1px solid var(--bord); display: flex; align-items: center; justify-content: center; font-size: 0.95rem; flex-shrink: 0; }
+  .contact-detail a { color: var(--navy); text-decoration: none; }
+  .contact-detail a:hover { color: var(--neon); }
+
+  .form-box {
+    background: var(--white);
+    border: 1px solid var(--bord);
+    border-radius: 12px; padding: 44px 40px;
+    box-shadow: 0 4px 28px rgba(6,18,40,0.07);
+  }
+
+  .form-box h3 { font-family: 'Bricolage Grotesque', sans-serif; font-size: 1.5rem; font-weight: 800; letter-spacing: -0.025em; margin-bottom: 28px; color: var(--navy); }
+
+  .fg { margin-bottom: 14px; }
+
+  .fg label {
+    display: block; font-size: 0.63rem; font-weight: 500;
+    color: var(--muted); letter-spacing: 0.13em;
+    text-transform: uppercase; margin-bottom: 7px;
+  }
+
+  .fg input, .fg select, .fg textarea {
+    width: 100%; padding: 11px 14px;
+    background: var(--bg); border: 1px solid var(--bord);
+    border-radius: 5px; font-family: 'Inter', sans-serif;
+    font-size: 0.86rem; color: var(--text);
+    outline: none; appearance: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+
+  .fg input::placeholder, .fg textarea::placeholder { color: rgba(92,110,138,0.5); }
+  .fg input:focus, .fg select:focus, .fg textarea:focus { border-color: var(--neon); box-shadow: 0 0 0 3px rgba(0,201,167,0.1); }
+  .fg textarea { resize: vertical; min-height: 84px; }
+  .fr { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+
+  .form-btn {
+    width: 100%; padding: 14px;
+    background: var(--navy); color: var(--neon);
+    font-family: 'Bricolage Grotesque', sans-serif;
+    font-size: 0.9rem; font-weight: 700;
+    letter-spacing: 0.06em; text-transform: uppercase;
+    border: none; border-radius: 5px; cursor: pointer; margin-top: 8px;
+    transition: box-shadow 0.2s, background 0.2s;
+  }
+
+  .form-btn:hover { background: var(--navy2); box-shadow: 0 4px 20px var(--glow); }
+
+  /* ======= FOOTER ======= */
+  footer {
+    background: var(--navy);
+    padding: 56px 80px 36px;
+    display: grid; grid-template-columns: 1.6fr 1fr 1fr 1fr; gap: 48px;
+  }
+
+  .ft-logo {
+    font-family: 'Bricolage Grotesque', sans-serif;
+    font-weight: 800; font-size: 1.15rem;
+    color: var(--white); display: flex; align-items: center; gap: 8px;
+    margin-bottom: 14px; letter-spacing: -0.01em;
+  }
+
+  .ft-desc { font-size: 0.82rem; font-weight: 300; color: rgba(255,255,255,0.38); line-height: 1.75; max-width: 220px; }
+
+  .ft-col h5 { font-size: 0.62rem; font-weight: 700; color: var(--neon); letter-spacing: 0.18em; text-transform: uppercase; margin-bottom: 16px; opacity: 0.7; }
+  .ft-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+  .ft-col ul li a { font-size: 0.82rem; font-weight: 300; color: rgba(255,255,255,0.43); text-decoration: none; transition: color 0.2s; }
+  .ft-col ul li a:hover { color: var(--neon); }
+
+  .ft-bottom {
+    background: var(--navy); border-top: 1px solid rgba(255,255,255,0.07);
+    padding: 20px 80px; display: flex; justify-content: space-between; align-items: center;
+  }
+
+  .ft-bottom p { font-size: 0.72rem; color: rgba(255,255,255,0.28); }
+
+  /* ======= ANIMATIONS ======= */
+  @keyframes up { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+  .fi { opacity: 0; transform: translateY(18px); transition: opacity 0.5s ease, transform 0.5s ease; }
+  .fi.on { opacity: 1; transform: none; }
+
+  /* ======= MOBILE ======= */
+  @media (max-width: 900px) {
+    nav { padding: 0 22px; }
+    .nav-links { display: none; }
+    .hero { padding: 110px 24px 60px; }
+    .hero-img-area { height: 280px; }
+    .hero-stats { position: static; transform: none; display: grid; grid-template-columns: repeat(3,1fr); gap: 8px; margin-top: 16px; }
+    .services { padding: 64px 24px; }
+    .svc-panels { grid-template-columns: 1fr; }
+    .svc-panel { border-right: none; border-bottom: 1px solid var(--bord); }
+    .svc-panel:last-child { border-bottom: none; }
+    .about-row { grid-template-columns: 1fr; }
+    .about-row.flip { direction: ltr; }
+    .about-img { min-height: 200px; border-left: none !important; border-right: none !important; border-top: 1px solid rgba(255,255,255,0.07); }
+    .feats { grid-template-columns: 1fr; }
+    .stats { grid-template-columns: 1fr 1fr; padding: 0 24px; }
+    .stat { border-right: none; border-bottom: 1px solid rgba(6,18,40,0.1); }
+    .process { padding: 64px 24px; }
+    .steps { grid-template-columns: 1fr 1fr; gap: 36px; }
+    .steps::before { display: none; }
+    .inventory { padding: 64px 0; }
+    .inventory-head { padding: 0 24px; }
+    .inv-scroll-wrap { padding: 8px 24px 24px; }
+    .gallery-head { padding: 64px 24px 32px; }
+    .g-mosaic { grid-template-columns: 1fr 1fr; grid-template-rows: 160px 160px; }
+    .g-cell:first-child { grid-column: span 2; }
+    .contact { padding: 64px 24px; }
+    .contact-inner { grid-template-columns: 1fr; gap: 40px; }
+    .fr { grid-template-columns: 1fr; }
+    footer { grid-template-columns: 1fr 1fr; padding: 44px 24px; }
+    .ft-bottom { padding: 16px 24px; flex-direction: column; gap: 6px; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="nav">
+  <a class="logo" href="#"><span class="logo-pip"></span>S&G Party Hire</a>
+  <ul class="nav-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#gallery">Gallery</a></li>
+    <li><a href="#process">Process</a></li>
+    <li><a href="#contact" class="nav-cta">Get a Quote</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-tag"><span></span>Party &amp; Event Hire<span></span></div>
+    <h1>The Setup Behind<br>Every <span class="accent">Great Party.</span></h1>
+    <p class="hero-sub">[One or two sentences about what you do and where you operate. Delivery, setup, and collection all included.]</p>
+    <div class="hero-btns">
+      <a href="#contact" class="btn btn-solid">Get a Free Quote</a>
+      <a href="#services" class="btn btn-line">Our Services</a>
+    </div>
+    <div class="hero-chips">
+      <div class="chip"><span class="chip-icon">🪑</span>Party Furniture</div>
+      <div class="chip"><span class="chip-icon">⛺</span>Marquee Hire</div>
+      <div class="chip"><span class="chip-icon">🚿</span>Portaloo Hire</div>
+      <div class="chip"><span class="chip-icon">🚚</span>Delivery Included</div>
+    </div>
+    <div class="hero-img-area">
+      <svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="#00C9A7" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+      <span class="hero-img-hint">Add hero image — marquee or event setup</span>
+      <div class="hero-stats">
+        <div class="hstat"><span class="hstat-n">[##]+</span><span class="hstat-l">Years Trading</span></div>
+        <div class="hstat"><span class="hstat-n">[##]+</span><span class="hstat-l">Events Done</span></div>
+        <div class="hstat"><span class="hstat-n">3</span><span class="hstat-l">Services</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker">
+  <div class="ticker-inner">
+    <div class="tick-item">Delivery &amp; Collection Included <span class="tick-dot"></span></div>
+    <div class="tick-item">[County / Region] <span class="tick-dot"></span></div>
+    <div class="tick-item">Weddings &amp; Parties <span class="tick-dot"></span></div>
+    <div class="tick-item">Corporate Events <span class="tick-dot"></span></div>
+    <div class="tick-item">Festivals &amp; Communities <span class="tick-dot"></span></div>
+    <div class="tick-item">Same-Week Availability <span class="tick-dot"></span></div>
+    <div class="tick-item">Delivery &amp; Collection Included <span class="tick-dot"></span></div>
+    <div class="tick-item">[County / Region] <span class="tick-dot"></span></div>
+    <div class="tick-item">Weddings &amp; Parties <span class="tick-dot"></span></div>
+    <div class="tick-item">Corporate Events <span class="tick-dot"></span></div>
+    <div class="tick-item">Festivals &amp; Communities <span class="tick-dot"></span></div>
+    <div class="tick-item">Same-Week Availability <span class="tick-dot"></span></div>
+  </div>
+</div>
+
+<!-- SERVICES -->
+<section class="services" id="services">
+  <div class="sec-head fi">
+    <div class="sec-tag">What We Do</div>
+    <h2 class="sec-title">Three Services,<br>One Reliable Team</h2>
+  </div>
+  <div class="svc-panels">
+    <div class="svc-panel fi">
+      <div class="svc-panel-img">
+        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#00C9A7" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+        <span class="svc-panel-img-lbl">Add party furniture photo</span>
+        <div class="svc-panel-badge">Most Popular</div>
+      </div>
+      <div class="svc-panel-body">
+        <div class="svc-panel-num">01 — Furniture</div>
+        <h3>Party Furniture Hire</h3>
+        <p>[Short description of your furniture hire service and what events it suits.]</p>
+        <ul class="svc-list">
+          <li>[Item type, e.g. Trestle &amp; round tables]</li>
+          <li>[Item type, e.g. Tiffany chairs]</li>
+          <li>[Item type, e.g. Cocktail bars]</li>
+          <li>[Item type, e.g. Lounge sets]</li>
+          <li>[Item type, e.g. Linens &amp; chair covers]</li>
+        </ul>
+      </div>
+    </div>
+    <div class="svc-panel fi">
+      <div class="svc-panel-img">
+        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#00C9A7" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+        <span class="svc-panel-img-lbl">Add marquee photo</span>
+      </div>
+      <div class="svc-panel-body">
+        <div class="svc-panel-num">02 — Marquees</div>
+        <h3>Marquee Hire</h3>
+        <p>[Short description of your marquee hire service and what events it suits.]</p>
+        <ul class="svc-list">
+          <li>[Marquee type, e.g. Frame marquees]</li>
+          <li>[Feature, e.g. Lining &amp; flooring included]</li>
+          <li>[Feature, e.g. Lighting packages available]</li>
+          <li>[Capacity, e.g. [##] to [##]+ guests]</li>
+        </ul>
+      </div>
+    </div>
+    <div class="svc-panel fi">
+      <div class="svc-panel-img">
+        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#00C9A7" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+        <span class="svc-panel-img-lbl">Add portaloo photo</span>
+      </div>
+      <div class="svc-panel-body">
+        <div class="svc-panel-num">03 — Sanitation</div>
+        <h3>Portaloo Hire</h3>
+        <p>[Short description of your portaloo hire service and what events it suits.]</p>
+        <ul class="svc-list">
+          <li>[Unit type, e.g. Standard portaloos]</li>
+          <li>[Unit type, e.g. Luxury toilet trailers]</li>
+          <li>[Unit type, e.g. Accessible units]</li>
+          <li>[Feature, e.g. Multi-day servicing available]</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT / WHY — zigzag dark -->
+<section class="about" id="about">
+  <!-- Row 1 -->
+  <div class="about-row">
+    <div class="about-txt fi">
+      <div class="sec-tag">About Us</div>
+      <h2 class="sec-title">[Your strapline, e.g. "We've Been Doing This a Long Time"]</h2>
+      <p>[Add a short paragraph about the business here. Who you are, where you're based, how long you've been operating, and what makes you the right choice over other hire companies in the area.]</p>
+      <div class="feats">
+        <div class="feat"><div class="feat-ico">🚚</div><div><strong>Delivery &amp; Collection</strong><span>We deliver, set up where needed, and collect when you're done.</span></div></div>
+        <div class="feat"><div class="feat-ico">📞</div><div><strong>Real People, Real Responses</strong><span>Same team from first enquiry to pack-down. No middlemen.</span></div></div>
+        <div class="feat"><div class="feat-ico">📅</div><div><strong>Flexible Hire Periods</strong><span>One day, a weekend, or multi-week. We work around your event.</span></div></div>
+      </div>
+    </div>
+    <div class="about-img fi">
+      <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#00C9A7" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+      <span class="about-img-lbl">Add team or delivery photo</span>
+    </div>
+  </div>
+
+  <div class="about-divider"></div>
+
+  <!-- Row 2 (flipped) -->
+  <div class="about-row flip">
+    <div class="about-txt fi">
+      <div class="sec-tag">Our Coverage</div>
+      <h2 class="sec-title">[Serving [County / Region] &amp; Surrounding Areas]</h2>
+      <p>[Add a short paragraph about where you deliver and operate. Mention specific towns, counties, or regions to help with local search visibility.]</p>
+    </div>
+    <div class="about-img fi">
+      <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#00C9A7" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+      <span class="about-img-lbl">Add event setup or area photo</span>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats">
+  <div class="stat fi"><div class="stat-n">[##]+</div><div class="stat-l">Years in Business</div></div>
+  <div class="stat fi"><div class="stat-n">[##]+</div><div class="stat-l">Events Supplied</div></div>
+  <div class="stat fi"><div class="stat-n">[##]</div><div class="stat-l">[Stat label, e.g. Team Members]</div></div>
+  <div class="stat fi"><div class="stat-n">3</div><div class="stat-l">Hire Categories</div></div>
+</div>
+
+<!-- PROCESS -->
+<section class="process" id="process">
+  <div class="sec-head fi">
+    <div class="sec-tag">How It Works</div>
+    <h2 class="sec-title">Simple from Start to Finish</h2>
+  </div>
+  <div class="steps">
+    <div class="step fi"><div class="step-n">01</div><h4>Get in Touch</h4><p>Tell us your date, location and what you need. We confirm availability straight away.</p></div>
+    <div class="step fi"><div class="step-n">02</div><h4>Get Your Quote</h4><p>Clear, itemised quote sent to you. No hidden charges, no surprises on the day.</p></div>
+    <div class="step fi"><div class="step-n">03</div><h4>We Deliver</h4><p>On-time delivery and setup. You focus on your event, we handle the logistics.</p></div>
+    <div class="step fi"><div class="step-n">04</div><h4>We Collect</h4><p>When your event wraps up, we come back and collect everything. Job done.</p></div>
+  </div>
+</section>
+
+<!-- INVENTORY — horizontal scroll -->
+<section class="inventory" id="inventory">
+  <div class="inventory-head fi">
+    <div class="sec-tag">Our Inventory</div>
+    <h2 class="sec-title">Something for Every Event</h2>
+  </div>
+  <div class="inv-scroll-wrap">
+    <div class="inv-track">
+      <div class="inv-card"><div class="inv-img"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#00C9A7" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg><span class="inv-img-hint">Add photo</span></div><div class="inv-body"><h4>[Item Name]</h4><p>[Short description of this item.]</p></div></div>
+      <div class="inv-card"><div class="inv-img"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#00C9A7" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg><span class="inv-img-hint">Add photo</span></div><div class="inv-body"><h4>[Item Name]</h4><p>[Short description of this item.]</p></div></div>
+      <div class="inv-card"><div class="inv-img"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#00C9A7" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg><span class="inv-img-hint">Add photo</span></div><div class="inv-body"><h4>[Item Name]</h4><p>[Short description of this item.]</p></div></div>
+      <div class="inv-card"><div class="inv-img"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#00C9A7" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg><span class="inv-img-hint">Add photo</span></div><div class="inv-body"><h4>[Item Name]</h4><p>[Short description of this item.]</p></div></div>
+      <div class="inv-card"><div class="inv-img"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#00C9A7" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg><span class="inv-img-hint">Add photo</span></div><div class="inv-body"><h4>[Item Name]</h4><p>[Short description of this item.]</p></div></div>
+      <div class="inv-card"><div class="inv-img"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#00C9A7" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg><span class="inv-img-hint">Add photo</span></div><div class="inv-body"><h4>[Item Name]</h4><p>[Short description of this item.]</p></div></div>
+      <div class="inv-card"><div class="inv-img"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#00C9A7" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg><span class="inv-img-hint">Add photo</span></div><div class="inv-body"><h4>[Item Name]</h4><p>[Short description of this item.]</p></div></div>
+      <div class="inv-card"><div class="inv-img"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#00C9A7" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg><span class="inv-img-hint">Add photo</span></div><div class="inv-body"><h4>[Item Name]</h4><p>[Short description of this item.]</p></div></div>
+      <div class="inv-card"><div class="inv-img"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#00C9A7" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg><span class="inv-img-hint">Add photo</span></div><div class="inv-body"><h4>[Item Name]</h4><p>[Short description of this item.]</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section class="gallery" id="gallery">
+  <div class="gallery-head fi">
+    <div class="sec-tag">Gallery</div>
+    <h2 class="sec-title">See the Work</h2>
+  </div>
+  <div class="g-mosaic">
+    <div class="g-cell fi">
+      <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#00C9A7" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+      <span class="g-hint">Add marquee setup photo</span>
+      <div class="g-tag">Marquees</div>
+    </div>
+    <div class="g-cell fi">
+      <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#00C9A7" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+      <span class="g-hint">Add furniture photo</span>
+      <div class="g-tag">Furniture</div>
+    </div>
+    <div class="g-cell fi">
+      <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#00C9A7" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+      <span class="g-hint">Add portaloo photo</span>
+      <div class="g-tag">Portaloos</div>
+    </div>
+    <div class="g-cell fi">
+      <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#00C9A7" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+      <span class="g-hint">Add wedding photo</span>
+      <div class="g-tag">Weddings</div>
+    </div>
+    <div class="g-cell fi">
+      <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#00C9A7" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+      <span class="g-hint">Add event photo</span>
+      <div class="g-tag">Events</div>
+    </div>
+    <div class="g-cell fi">
+      <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#00C9A7" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+      <span class="g-hint">Add festival photo</span>
+      <div class="g-tag">Festivals</div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div class="contact-inner">
+    <div class="contact-left fi">
+      <div class="sec-tag">Get In Touch</div>
+      <h2 class="sec-title">Tell Us About Your Event</h2>
+      <p>[One or two sentences inviting people to get in touch. Mention the areas you cover and that there's no obligation.]</p>
+      <ul class="contact-perks">
+        <li><span class="perk-pip"></span>Free, no-obligation quote</li>
+        <li><span class="perk-pip"></span>Delivery and collection included</li>
+        <li><span class="perk-pip"></span>Same-week bookings available</li>
+      </ul>
+      <div class="contact-details">
+        <div class="contact-detail"><div class="dico">📞</div><a href="#">[Phone number]</a></div>
+        <div class="contact-detail"><div class="dico">✉️</div><a href="#">[Email address]</a></div>
+        <div class="contact-detail"><div class="dico">📍</div><span>[Town / County]</span></div>
+      </div>
+    </div>
+    <div class="form-box fi">
+      <h3>Request a Free Quote</h3>
+      <div class="fr">
+        <div class="fg"><label>Your Name</label><input type="text" placeholder="First name"></div>
+        <div class="fg"><label>Phone Number</label><input type="tel" placeholder="[Phone format]"></div>
+      </div>
+      <div class="fg"><label>Event Date</label><input type="date"></div>
+      <div class="fg">
+        <label>Services Needed</label>
+        <select>
+          <option value="">Select a service</option>
+          <option>Party Furniture Hire</option>
+          <option>Marquee Hire</option>
+          <option>Portaloo Hire</option>
+          <option>Multiple Services</option>
+        </select>
+      </div>
+      <div class="fg"><label>Tell Us More</label><textarea placeholder="Guest numbers, venue type, anything useful..."></textarea></div>
+      <button class="form-btn" type="button">Send Enquiry</button>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div>
+    <div class="ft-logo"><span class="logo-pip"></span>S&G Party Hire</div>
+    <p class="ft-desc">[Short tagline about the business and where you are based.]</p>
+  </div>
+  <div class="ft-col">
+    <h5>Services</h5>
+    <ul>
+      <li><a href="#services">Party Furniture</a></li>
+      <li><a href="#services">Marquee Hire</a></li>
+      <li><a href="#services">Portaloo Hire</a></li>
+      <li><a href="#inventory">Full Inventory</a></li>
+    </ul>
+  </div>
+  <div class="ft-col">
+    <h5>Company</h5>
+    <ul>
+      <li><a href="#about">About Us</a></li>
+      <li><a href="#process">How It Works</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </div>
+  <div class="ft-col">
+    <h5>Contact</h5>
+    <ul>
+      <li><a href="#">[Phone number]</a></li>
+      <li><a href="#">[Email address]</a></li>
+      <li><a href="#">[Facebook / Instagram]</a></li>
+    </ul>
+  </div>
+</footer>
+<div class="ft-bottom">
+  <p>&copy; 2025 S&G Party Hire. All rights reserved.</p>
+  <p>Website by <a href="https://squaretwo.ie" style="color:rgba(255,255,255,0.32);text-decoration:none;">Square Two</a></p>
+</div>
+
+<script>
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('on'), 60);
+        obs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.08 });
+
+  document.querySelectorAll('.fi').forEach(el => obs.observe(el));
+  window.addEventListener('scroll', () => {
+    document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 40);
+  });
+</script>
+</body>
+</html>
