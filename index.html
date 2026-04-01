@@ -76,16 +76,12 @@ nav {
   position: fixed; top: 0; left: 0; right: 0; z-index: 500;
   height: 68px; padding: 0 52px;
   display: flex; align-items: center; justify-content: space-between;
-  background: rgba(26,26,26,0.95);
-  backdrop-filter: blur(20px);
+  background: #1A1A1A;
   box-shadow: 0 1px 0 var(--bord);
-  transition: background 0.4s ease, box-shadow 0.4s ease;
 }
 
 nav.filled {
-  background: rgba(8,14,26,0.94);
-  backdrop-filter: blur(20px);
-  box-shadow: 0 1px 0 var(--bord);
+  background: #1A1A1A;
 }
 
 .nav-logo {
@@ -400,6 +396,8 @@ nav.filled {
   font-size: clamp(3.2rem, 6vw, 7rem);
   line-height: 0.95; letter-spacing: -0.03em;
   color: var(--white);
+  word-break: keep-all;
+  overflow-wrap: normal;
   opacity: 0; animation: fadeInUp 0.9s 0.5s cubic-bezier(0.22,1,0.36,1) forwards;
 }
 
@@ -1038,11 +1036,15 @@ footer .ft-desc { font-size: 0.83rem; font-weight: 300; color: rgba(255,255,255,
   .nav-quote-btn { padding: 8px 16px; font-size: 0.72rem; }
 
   .hero-content { padding: 0 24px 48px; max-width: none; }
-  .hero-headline { font-size: clamp(2.4rem, 9vw, 4rem); }
+  .hero-headline { font-size: clamp(2rem, 7vw, 3.5rem); }
   .hero-sub { font-size: 0.95rem; }
   .hero-btns { gap: 10px; }
   .hero-eyebrow { font-size: 0.65rem; }
-  .home-hero { min-height: 600px; }
+  .home-hero { min-height: auto; height: 100vh; height: 100svh; height: -webkit-fill-available; }
+  .hero-carousel, .hero-carousel .carousel-track { height: 100%; }
+  .hero-carousel .carousel-slide { height: 100vh; height: 100svh; min-height: 0; }
+  .hero-carousel .carousel-slide img { height: 100%; object-fit: cover; }
+  .hero-overlay { position: absolute; inset: 0; }
 
   .services-block { padding: 64px 0; }
   .services-block-inner, .svc-carousel-strip { padding: 0 24px; }
@@ -1108,9 +1110,11 @@ footer .ft-desc { font-size: 0.83rem; font-weight: 300; color: rgba(255,255,255,
 @media (max-width: 480px) {
   nav { padding: 0 12px; }
   .hero-content { padding: 0 18px 40px; }
-  .hero-headline { font-size: clamp(2rem, 9vw, 3rem); }
+  .hero-headline { font-size: clamp(1.6rem, 7vw, 2.5rem); }
   .hero-btns { flex-direction: column; align-items: flex-start; }
-  .home-hero { min-height: 520px; }
+  .home-hero { height: 100vh; height: 100svh; height: -webkit-fill-available; }
+  .hero-carousel .carousel-slide { height: 100vh; height: 100svh; }
+  .hero-carousel .carousel-slide img { height: 100%; }
 
   .gal-grid { grid-template-columns: 1fr; }
 
@@ -1460,7 +1464,7 @@ footer .ft-desc { font-size: 0.83rem; font-weight: 300; color: rgba(255,255,255,
     <div class="hero-content">
       <div class="hero-left">
         <div class="hero-eyebrow">Serving All of Ireland</div>
-        <h1 class="hero-headline" id="heroHeadline">Setting<br>the scene for<br><span class="italic">your event.</span></h1>
+        <h1 class="hero-headline" id="heroHeadline">Setting<br>the scene<br><span class="italic">for your event.</span></h1>
         <p class="hero-sub">Party furniture and portaloo hire anywhere in Ireland. Fairly priced. Professionally delivered. Always on time.</p>
         <div class="hero-btns">
           <a class="btn btn-teal" onclick="go('contact')">Get a Free Quote</a>
