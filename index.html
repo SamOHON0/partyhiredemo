@@ -72,16 +72,18 @@ body {
 .reveal-d5 { transition-delay: 0.5s; }
 
 /* ===== NAV ===== */
-nav {
-  position: fixed; top: 0; left: 0; right: 0; z-index: 500;
+nav, nav#nav {
+  position: fixed !important; top: 0 !important; left: 0 !important; right: 0 !important; z-index: 9999 !important;
   height: 68px; padding: 0 52px;
-  display: flex; align-items: center; justify-content: space-between;
-  background: #1A1A1A;
+  display: flex !important; align-items: center; justify-content: space-between;
+  background: #1A1A1A !important;
   box-shadow: 0 1px 0 var(--bord);
+  opacity: 1 !important; visibility: visible !important;
+  transform: none !important;
 }
 
 nav.filled {
-  background: #1A1A1A;
+  background: #1A1A1A !important;
 }
 
 .nav-logo {
@@ -401,7 +403,7 @@ nav.filled {
   opacity: 0; animation: fadeInUp 0.9s 0.5s cubic-bezier(0.22,1,0.36,1) forwards;
 }
 
-.hero-headline .italic { font-style: italic; color: var(--teal); }
+.hero-headline .italic { font-style: italic; color: var(--teal); white-space: nowrap; }
 
 .hero-sub {
   font-size: 1.05rem; font-weight: 300; color: rgba(255,255,255,0.65);
@@ -1036,7 +1038,7 @@ footer .ft-desc { font-size: 0.83rem; font-weight: 300; color: rgba(255,255,255,
   .nav-quote-btn { padding: 8px 16px; font-size: 0.72rem; }
 
   .hero-content { padding: 0 24px 48px; max-width: none; }
-  .hero-headline { font-size: 1.8rem; }
+  .hero-headline { font-size: 1.8rem; opacity: 1 !important; animation: none !important; }
   .hero-headline .italic { white-space: nowrap; }
   .hero-sub { font-size: 0.95rem; }
   .hero-btns { gap: 10px; }
@@ -1111,7 +1113,7 @@ footer .ft-desc { font-size: 0.83rem; font-weight: 300; color: rgba(255,255,255,
 @media (max-width: 480px) {
   nav { padding: 0 12px; }
   .hero-content { padding: 0 18px 40px; }
-  .hero-headline { font-size: 1.5rem; }
+  .hero-headline { font-size: 1.5rem; opacity: 1 !important; animation: none !important; }
   .hero-headline .italic { white-space: nowrap; }
   .hero-btns { flex-direction: column; align-items: flex-start; }
   .home-hero { height: 100vh; height: 100svh; height: -webkit-fill-available; }
@@ -2049,7 +2051,9 @@ footer .ft-desc { font-size: 0.83rem; font-weight: 300; color: rgba(255,255,255,
     });
   }
 
-  splitAndAnimate(document.getElementById('heroHeadline'));
+  // Split text disabled - breaks white-space:nowrap
+  var h = document.getElementById('heroHeadline');
+  if (h) { h.style.opacity = '1'; }
 
   // ============================================================
   // MAGNETIC BUTTONS
