@@ -1027,15 +1027,53 @@ footer .ft-desc { font-size: 0.83rem; font-weight: 300; color: rgba(255,255,255,
 
 .cta-btns { display: flex; gap: 12px; align-items: center; flex-shrink: 0; }
 
+/* ===== HAMBURGER ===== */
+.hamburger {
+  display: none;
+  background: none; border: none; cursor: pointer;
+  width: 32px; height: 24px; position: relative;
+  flex-shrink: 0;
+}
+.hamburger span {
+  display: block; position: absolute; left: 0; right: 0;
+  height: 2px; background: #fff; border-radius: 2px;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+.hamburger span:nth-child(1) { top: 0; }
+.hamburger span:nth-child(2) { top: 50%; transform: translateY(-50%); }
+.hamburger span:nth-child(3) { bottom: 0; }
+.hamburger.open span:nth-child(1) { top: 50%; transform: translateY(-50%) rotate(45deg); }
+.hamburger.open span:nth-child(2) { opacity: 0; }
+.hamburger.open span:nth-child(3) { bottom: auto; top: 50%; transform: translateY(-50%) rotate(-45deg); }
+
 /* ===== MOBILE ===== */
 @media (max-width: 900px) {
   .cursor, .cursor-ring { display: none; }
   body { cursor: auto; }
   nav { padding: 0 16px; height: 60px; }
-  .nav-links { display: none; }
-  .nav-r { gap: 8px; }
+  .nav-links {
+    display: none !important;
+    position: fixed; top: 60px; left: 0; right: 0;
+    background: #1A1A1A;
+    flex-direction: column; gap: 0;
+    padding: 0; margin: 0;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+    z-index: 9998;
+  }
+  .nav-links.open { display: flex !important; }
+  .nav-links li { list-style: none; }
+  .nav-links a {
+    display: block; padding: 16px 24px;
+    font-size: 0.95rem; color: rgba(255,255,255,0.8);
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    border-radius: 0;
+  }
+  .nav-links a:hover, .nav-links a.active { background: rgba(255,255,255,0.05); color: #fff; }
+  .nav-r { gap: 10px; }
   .nav-phone-link span { display: none; }
-  .nav-quote-btn { padding: 8px 16px; font-size: 0.72rem; }
+  .nav-quote-btn { display: none; }
+  .hamburger { display: block; }
 
   .hero-content { padding: 0 24px 48px; max-width: none; }
   .hero-headline { font-size: 1.8rem; opacity: 1 !important; animation: none !important; }
@@ -1428,12 +1466,12 @@ footer .ft-desc { font-size: 0.83rem; font-weight: 300; color: rgba(255,255,255,
 <!-- NAV -->
 <nav id="nav">
   <div class="nav-logo" onclick="go('home')"><span class="pip"></span>S&G Party Hire</div>
-  <ul class="nav-links">
-    <li><a id="nl-home" class="active" onclick="go('home')">Home</a></li>
-    <li><a id="nl-services" onclick="go('services')">Services</a></li>
-    <li><a id="nl-gallery" onclick="go('gallery')">Gallery</a></li>
-    <li><a id="nl-about" onclick="go('about')">About</a></li>
-    <li><a id="nl-contact" onclick="go('contact')">Contact</a></li>
+  <ul class="nav-links" id="navLinks">
+    <li><a id="nl-home" class="active" onclick="go('home');closeMenu()">Home</a></li>
+    <li><a id="nl-services" onclick="go('services');closeMenu()">Services</a></li>
+    <li><a id="nl-gallery" onclick="go('gallery');closeMenu()">Gallery</a></li>
+    <li><a id="nl-about" onclick="go('about');closeMenu()">About</a></li>
+    <li><a id="nl-contact" onclick="go('contact');closeMenu()">Contact</a></li>
   </ul>
   <div class="nav-r">
     <a class="nav-phone-link" href="tel:0000000000">
@@ -1441,6 +1479,9 @@ footer .ft-desc { font-size: 0.83rem; font-weight: 300; color: rgba(255,255,255,
       <span>000 000 0000</span>
     </a>
     <a class="nav-quote-btn" onclick="go('contact')">Get a Quote</a>
+    <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
   </div>
 </nav>
 
@@ -2286,6 +2327,16 @@ footer .ft-desc { font-size: 0.83rem; font-weight: 300; color: rgba(255,255,255,
   document.querySelectorAll('.nav-links a').forEach(function(a) {
     a.addEventListener('click', function(e) { e.preventDefault(); });
   });
+
+  // Hamburger menu
+  window.toggleMenu = function() {
+    document.getElementById('navLinks').classList.toggle('open');
+    document.getElementById('hamburger').classList.toggle('open');
+  };
+  window.closeMenu = function() {
+    document.getElementById('navLinks').classList.remove('open');
+    document.getElementById('hamburger').classList.remove('open');
+  };
 
   // ============================================================
   // CHATBOT
